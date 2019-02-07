@@ -1,0 +1,5 @@
+.navArea{width:100%; height:50px; background-color: cornflowerblue; float: left; margin:0px; padding: 0px;}
+.navArea ul{ margin:0px; padding: 0px; float: left; }
+.navArea ul li{ margin:0px 30px; float: left; line-height: 50px; list-style: none;}
+.navArea ul li a{ display: block; line-height: 50px; color:#fff; text-decoration: none}
+.navArea ul li a:hover{ display: block; line-height: 50px; color:#fff; text-decoration: underline;}
