@@ -9,6 +9,8 @@ import routes from '../shared/routes'
 import bodyParser from 'body-parser';
 import imageMaker from '../server/imagemaker';
 import Helmet from 'react-helmet';
+import MetaTagsServer from 'react-meta-tags/server';
+import {MetaTagsContext} from 'react-meta-tags';
 
 const port = process.env.PORT || 3000;
 const app = express()
@@ -32,6 +34,8 @@ app.post('/saveimage', async function(req,res){
 
 app.get("*", (req, res, next) => {
 
+  const metaTagsInstance = MetaTagsServer();
+
   const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
 
   const promise = activeRoute.fetchInitialData
@@ -42,20 +46,24 @@ app.get("*", (req, res, next) => {
     const context = { data }
 
     const markup = renderToString(
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
+      <MetaTagsContext extract = {metaTagsInstance.extract}>
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      </MetaTagsContext>
     )
 
-    let head = Helmet.rewind();
-    let helmet = Helmet.renderStatic();
+    //let head = Helmet.rewind();
+    //let helmet = Helmet.renderStatic();
+
+    const meta = metaTagsInstance.renderToString();
 
     res.send(`
       <!DOCTYPE html>
       <html>
         <head>
-          <title>${head.title}</title>
-           ${helmet.meta.toString()}
+          <meta charSet="utf-8"/>
+          ${meta}
           <script src="/bundle.js" defer></script>
           <script src="/js/jquerymin.js" defer></script>
           <script src="/js/createjs.min.js" defer></script>
@@ -63,12 +71,19 @@ app.get("*", (req, res, next) => {
           <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
         </head>
 
-        <style>
-          body{margin:0px; padding:0px;}
-        </style>
-
         <body>
+        
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        
           <div id="app">${markup}</div>
+
+          <div id="fb-root"></div>
         </body>
       </html>
     `)

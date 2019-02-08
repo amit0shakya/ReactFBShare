@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,6 +77,12 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-meta-tags");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -158,17 +164,17 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _stringify = __webpack_require__(19);
+var _stringify = __webpack_require__(21);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _slicedToArray2 = __webpack_require__(20);
+var _slicedToArray2 = __webpack_require__(22);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
@@ -288,12 +294,6 @@ function insertCss(styles) {
 module.exports = insertCss;
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-helmet");
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -304,25 +304,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Home = __webpack_require__(16);
+var _Home = __webpack_require__(18);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Project = __webpack_require__(23);
+var _Project = __webpack_require__(25);
 
 var _Project2 = _interopRequireDefault(_Project);
 
-var _Sharer = __webpack_require__(27);
+var _Sharer = __webpack_require__(29);
 
 var _Sharer2 = _interopRequireDefault(_Sharer);
 
-var _Tnc = __webpack_require__(33);
+var _Tnc = __webpack_require__(34);
 
 var _Tnc2 = _interopRequireDefault(_Tnc);
 
-var _Policy = __webpack_require__(34);
+var _Policy = __webpack_require__(35);
 
 var _Policy2 = _interopRequireDefault(_Policy);
+
+var _FBtest = __webpack_require__(36);
+
+var _FBtest2 = _interopRequireDefault(_FBtest);
+
+var _preview = __webpack_require__(37);
+
+var _preview2 = _interopRequireDefault(_preview);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -337,17 +345,29 @@ var routes = [{
   path: '/sharer/:id',
   component: _Sharer2.default
 }, {
+  path: '/fbtest',
+  component: _FBtest2.default
+}, {
   path: '/tnc',
   component: _Tnc2.default
 }, {
   path: '/policy',
   component: _Policy2.default
+}, {
+  path: '/preview/:id',
+  component: _preview2.default
 }];
 
 exports.default = routes;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -364,7 +384,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(1);
 
-var _Nav = __webpack_require__(21);
+var _Nav = __webpack_require__(23);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
@@ -401,37 +421,50 @@ function Navbar() {
 }
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("object-assign");
-
-/***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(9);
-module.exports = __webpack_require__(10);
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-polyfill");
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(11);
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(30);
+} else {
+  module.exports = __webpack_require__(31);
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("object-assign");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(11);
+module.exports = __webpack_require__(12);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-polyfill");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _express = __webpack_require__(13);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _cors = __webpack_require__(12);
+var _cors = __webpack_require__(14);
 
 var _cors2 = _interopRequireDefault(_cors);
 
@@ -439,15 +472,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(13);
+var _server = __webpack_require__(15);
 
 var _reactRouterDom = __webpack_require__(1);
 
-var _serializeJavascript = __webpack_require__(14);
+var _serializeJavascript = __webpack_require__(16);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _App = __webpack_require__(15);
+var _App = __webpack_require__(17);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -455,17 +488,23 @@ var _routes = __webpack_require__(5);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _bodyParser = __webpack_require__(35);
+var _bodyParser = __webpack_require__(38);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _imagemaker = __webpack_require__(36);
+var _imagemaker = __webpack_require__(39);
 
 var _imagemaker2 = _interopRequireDefault(_imagemaker);
 
-var _reactHelmet = __webpack_require__(4);
+var _reactHelmet = __webpack_require__(6);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+
+var _server2 = __webpack_require__(41);
+
+var _server3 = _interopRequireDefault(_server2);
+
+var _reactMetaTags = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -515,6 +554,8 @@ app.post('/saveimage', function () {
 
 app.get("*", function (req, res, next) {
 
+  var metaTagsInstance = (0, _server3.default)();
+
   var activeRoute = _routes2.default.find(function (route) {
     return (0, _reactRouterDom.matchPath)(req.url, route);
   }) || {};
@@ -525,15 +566,21 @@ app.get("*", function (req, res, next) {
     var context = { data: data };
 
     var markup = (0, _server.renderToString)(_react2.default.createElement(
-      _reactRouterDom.StaticRouter,
-      { location: req.url, context: context },
-      _react2.default.createElement(_App2.default, null)
+      _reactMetaTags.MetaTagsContext,
+      { extract: metaTagsInstance.extract },
+      _react2.default.createElement(
+        _reactRouterDom.StaticRouter,
+        { location: req.url, context: context },
+        _react2.default.createElement(_App2.default, null)
+      )
     ));
 
-    var head = _reactHelmet2.default.rewind();
-    var helmet = _reactHelmet2.default.renderStatic();
+    //let head = Helmet.rewind();
+    //let helmet = Helmet.renderStatic();
 
-    res.send("\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <title>" + head.title + "</title>\n           " + helmet.meta.toString() + "\n          <script src=\"/bundle.js\" defer></script>\n          <script src=\"/js/jquerymin.js\" defer></script>\n          <script src=\"/js/createjs.min.js\" defer></script>\n\n          <script>window.__INITIAL_DATA__ = " + (0, _serializeJavascript2.default)(data) + "</script>\n        </head>\n\n        <style>\n          body{margin:0px; padding:0px;}\n        </style>\n\n        <body>\n          <div id=\"app\">" + markup + "</div>\n        </body>\n      </html>\n    ");
+    var meta = metaTagsInstance.renderToString();
+
+    res.send("\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charSet=\"utf-8\"/>\n          " + meta + "\n          <script src=\"/bundle.js\" defer></script>\n          <script src=\"/js/jquerymin.js\" defer></script>\n          <script src=\"/js/createjs.min.js\" defer></script>\n\n          <script>window.__INITIAL_DATA__ = " + (0, _serializeJavascript2.default)(data) + "</script>\n        </head>\n\n        <body>\n        \n        <script>(function(d, s, id) {\n          var js, fjs = d.getElementsByTagName(s)[0];\n          if (d.getElementById(id)) return;\n          js = d.createElement(s); js.id = id;\n          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1';\n          fjs.parentNode.insertBefore(js, fjs);\n        }(document, 'script', 'facebook-jssdk'));</script>\n        \n          <div id=\"app\">" + markup + "</div>\n\n          <div id=\"fb-root\"></div>\n        </body>\n      </html>\n    ");
   }).catch(next);
 });
 
@@ -549,31 +596,31 @@ app.listen(port, function () {
 */
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -648,7 +695,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -664,15 +711,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Home = __webpack_require__(17);
+var _Home = __webpack_require__(19);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _reactHelmet = __webpack_require__(4);
+var _reactHelmet = __webpack_require__(6);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _Navbar = __webpack_require__(6);
+var _reactMetaTags = __webpack_require__(2);
+
+var _Navbar = __webpack_require__(7);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
@@ -723,15 +772,7 @@ var Home = function (_React$Component) {
         _react2.default.createElement(_Navbar2.default, null),
         ' ',
         _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          _reactHelmet2.default,
-          null,
-          _react2.default.createElement(
-            'title',
-            null,
-            'Amit Website Homepage'
-          )
-        ),
+        _react2.default.createElement(_reactMetaTags.ReactTitle, { title: 'Amit Website Homepage' }),
         _react2.default.createElement(
           'div',
           { className: _Home2.default.wrapper },
@@ -751,7 +792,7 @@ var Home = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Hi My name is Amit, I am developing project using Reactjs, this is a prototype pice of my project. This project is Developed using javascript technology tools ReactJS+Nodejs, Agenda of this prototype is user can develop art and share it to his facebook wall. We want freelancer must do this purly Reactjs and it\'s opensource technology, We dn\'t recommend to add prerender or other paid tools, beacause I want to run this project free of cost.'
+              'Hi My name is Amit, I am developing project using Reactjs SSR, Here I use React Helmet etc...'
             )
           )
         )
@@ -765,12 +806,12 @@ var Home = function (_React$Component) {
 exports.default = Home;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(18);
-    var insertCss = __webpack_require__(3);
+    var content = __webpack_require__(20);
+    var insertCss = __webpack_require__(4);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -800,10 +841,10 @@ exports.default = Home;
   
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
@@ -817,24 +858,24 @@ exports.locals = {
 };
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/json/stringify");
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/slicedToArray");
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(22);
-    var insertCss = __webpack_require__(3);
+    var content = __webpack_require__(24);
+    var insertCss = __webpack_require__(4);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -864,10 +905,10 @@ module.exports = require("babel-runtime/helpers/slicedToArray");
   
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
@@ -880,7 +921,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -896,23 +937,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Navbar = __webpack_require__(6);
+var _Navbar = __webpack_require__(7);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _project = __webpack_require__(24);
+var _project = __webpack_require__(26);
 
 var _project2 = _interopRequireDefault(_project);
 
-var _axios = __webpack_require__(26);
+var _axios = __webpack_require__(28);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactHelmet = __webpack_require__(4);
-
-var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
-
 var _reactRouterDom = __webpack_require__(1);
+
+var _reactMetaTags = __webpack_require__(2);
+
+var _reactMetaTags2 = _interopRequireDefault(_reactMetaTags);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -959,11 +1000,6 @@ var Project = function (_Component) {
             }
         }
     }, {
-        key: 'resetCanvas',
-        value: function resetCanvas() {
-            console.log("Reset canvas");
-        }
-    }, {
         key: 'saveImage',
         value: function saveImage() {
             stage.cache(0, 0, 500, 300);
@@ -974,33 +1010,35 @@ var Project = function (_Component) {
                 imgdata: stage.getCacheDataURL()
             }).then(function (response) {
 
-                console.log("------save image Response AA-----");
-
                 _parent.id = response.data.id;
 
-                var path = '/sharer/' + _parent.id;
-                //setTimeout(_parent.openSharerPage(path),15000)
+                setTimeout(function () {
+                    var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
+                    window.location.href = sharePath;
+                }, 10000);
 
-                var imagepath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/poster.jpg';
+                //window.open('https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/')
+                //var path='/sharer/'+_parent.id;
+                //var imagepath ='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/poster.jpg'
 
+                /*
                 _parent.setState({
-                    helmetcode: _react2.default.createElement(_reactHelmet2.default, {
-                        title: 'Only4Laugh',
-                        meta: [{ property: 'og:url', content: 'https://amit0shakyafbshare.herokuapp.com' }, { property: 'og:type', content: 'website' }, { property: 'og:title', content: 'Amit Post Title' }, { property: 'og:description', content: 'Amit Post Discription' }, { property: 'og:image', content: imagepath }, { property: 'og:image:width', content: '500' }, { property: 'og:image:height', content: '300' }] }),
-                    username: "Amit Shakya",
-                    redirect: true,
-                    path: path
-                });
-            });
-        }
-    }, {
-        key: 'openSharerPage',
-        value: function openSharerPage(path) {
-
-            this.Path = path;
-
-            this.setState({
-                redirect: true
+                    helmetcode: <MetaTags>
+                        <title>Only4Laugh</title>
+                        <meta property='og:url' content='https://amit0shakyafbshare.herokuapp.com' />
+                        <meta property='og:type' content='website' />
+                        <meta property='og:description' content='Amit Post Discription' />
+                        <meta property='og:title' content='Amit Post Title' />
+                        <meta property='og:image' content={imagepath} />
+                        <meta property='og:image:width' content='500' />
+                        <meta property='og:image:height' content='300' />
+                        </MetaTags>,
+                        username:"Amit Shakya",
+                        redirect:true,
+                        path:path
+                    })
+                      _parent.props.history.push(path)
+                */
             });
         }
     }, {
@@ -1052,10 +1090,8 @@ var Project = function (_Component) {
         key: 'render',
         value: function render() {
 
-            console.log(this.state.redirect, "<<<<<sharer 0000");
-
             if (this.state.redirect) {
-                console.log(this.state.redirect, "<<<<<sharer");
+
                 _react2.default.createElement(_reactRouterDom.Redirect, { to: '/sharer' });
             }
 
@@ -1094,11 +1130,6 @@ var Project = function (_Component) {
                             'button',
                             { onClick: this.saveImage },
                             'Save Image'
-                        ),
-                        _react2.default.createElement(
-                            _reactRouterDom.NavLink,
-                            { to: this.state.path },
-                            'Share page'
                         )
                     )
                 )
@@ -1112,12 +1143,12 @@ var Project = function (_Component) {
 exports.default = Project;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(25);
-    var insertCss = __webpack_require__(3);
+    var content = __webpack_require__(27);
+    var insertCss = __webpack_require__(4);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -1147,10 +1178,10 @@ exports.default = Project;
   
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(true);
+exports = module.exports = __webpack_require__(3)(true);
 // imports
 
 
@@ -1164,13 +1195,13 @@ exports.locals = {
 };
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1182,11 +1213,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = __webpack_require__(28);
+var _React = __webpack_require__(8);
 
 var _React2 = _interopRequireDefault(_React);
 
-var _reactImage = __webpack_require__(32);
+var _reactImage = __webpack_require__(33);
 
 var _reactImage2 = _interopRequireDefault(_reactImage);
 
@@ -1200,7 +1231,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 //import { FacebookProvider, Share } from 'react-facebook';
 
-var imgPath = "nothing";
 
 var Sharer = function (_Component) {
     _inherits(Sharer, _Component);
@@ -1210,11 +1240,39 @@ var Sharer = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Sharer.__proto__ || Object.getPrototypeOf(Sharer)).call(this, props));
 
-        imgPath = '/serverdata/' + props.match.params.id + '/poster.jpg';
+        _this.state = {
+            imgPath: '',
+            fbBodyCode: ''
+        };
         return _this;
     }
 
     _createClass(Sharer, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+
+            if (false) {
+                this.fbSetup();
+            }
+        }
+    }, {
+        key: 'fbSetup',
+        value: function fbSetup() {
+
+            this.setState({
+                fbBodyCode: _React2.default.createElement(
+                    'div',
+                    { className: 'fb-share-button', 'data-href': 'https://amit0shakyafbshare.herokuapp.com/', 'data-layout': 'button_count', 'data-size': 'large', 'data-mobile-iframe': 'true' },
+                    _React2.default.createElement(
+                        'a',
+                        { target: '_blank', href: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&src=sdkpreparse', className: 'fb-xfbml-parse-ignore' },
+                        'Share'
+                    )
+                ),
+                imgPath: '/serverdata/' + this.props.match.params.id + '/poster.jpg'
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _React2.default.createElement(
@@ -1222,7 +1280,8 @@ var Sharer = function (_Component) {
                 null,
                 'Share this Image',
                 _React2.default.createElement('br', null),
-                _React2.default.createElement(_reactImage2.default, { src: imgPath })
+                _React2.default.createElement(_reactImage2.default, { src: this.state.imgPath }),
+                this.state.fbBodyCode
             );
         }
     }]);
@@ -1233,20 +1292,7 @@ var Sharer = function (_Component) {
 exports.default = Sharer;
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(29);
-} else {
-  module.exports = __webpack_require__(30);
-}
-
-/***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1263,7 +1309,7 @@ if (process.env.NODE_ENV === 'production') {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var k = __webpack_require__(7),
+var k = __webpack_require__(9),
     n = "function" === typeof Symbol && Symbol.for,
     p = n ? Symbol.for("react.element") : 60103,
     q = n ? Symbol.for("react.portal") : 60106,
@@ -1430,7 +1476,7 @@ var X = { Children: { map: function map(a, b, d) {
     Z = Y && X || Y;module.exports = Z.default || Z;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1451,8 +1497,8 @@ if (process.env.NODE_ENV !== "production") {
   (function () {
     'use strict';
 
-    var _assign = __webpack_require__(7);
-    var checkPropTypes = __webpack_require__(31);
+    var _assign = __webpack_require__(9);
+    var checkPropTypes = __webpack_require__(32);
 
     // TODO: this is special because it gets imported during build.
 
@@ -3332,19 +3378,19 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types/checkPropTypes");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-image");
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3394,7 +3440,7 @@ var Tnc = function (_Component) {
 exports.default = Tnc;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3444,13 +3490,144 @@ var Policy = function (_Component) {
 exports.default = Policy;
 
 /***/ }),
-/* 35 */
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactMetaTags = __webpack_require__(2);
+
+var _reactMetaTags2 = _interopRequireDefault(_reactMetaTags);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FBtest = function (_Component) {
+    _inherits(FBtest, _Component);
+
+    function FBtest() {
+        _classCallCheck(this, FBtest);
+
+        return _possibleConstructorReturn(this, (FBtest.__proto__ || Object.getPrototypeOf(FBtest)).apply(this, arguments));
+    }
+
+    _createClass(FBtest, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactMetaTags2.default,
+                    null,
+                    _react2.default.createElement(
+                        'title',
+                        null,
+                        'FBShareTest'
+                    ),
+                    _react2.default.createElement('meta', { property: 'og:url', content: 'https://amit0shakyafbshare.herokuapp.com' }),
+                    _react2.default.createElement('meta', { property: 'og:type', content: 'website' }),
+                    _react2.default.createElement('meta', { property: 'og:description', content: 'Amit test post Share' }),
+                    _react2.default.createElement('meta', { property: 'og:title', content: 'Amit Post Title' }),
+                    _react2.default.createElement('meta', { property: 'og:image', content: 'https://amit0shakyafbshare.herokuapp.com/serverdata/6nft2yi5ur944uv-8-1-2019-3-27-803/poster.jpg' }),
+                    _react2.default.createElement('meta', { property: 'og:image:width', content: '500' }),
+                    _react2.default.createElement('meta', { property: 'og:image:height', content: '300' })
+                )
+            );
+        }
+    }]);
+
+    return FBtest;
+}(_react.Component);
+
+exports.default = FBtest;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _React = __webpack_require__(8);
+
+var _React2 = _interopRequireDefault(_React);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Preview = function (_Component) {
+    _inherits(Preview, _Component);
+
+    function Preview(props) {
+        _classCallCheck(this, Preview);
+
+        var _this = _possibleConstructorReturn(this, (Preview.__proto__ || Object.getPrototypeOf(Preview)).call(this, props));
+
+        _this.state = { id: id };
+        return _this;
+    }
+
+    _createClass(Preview, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+
+            this.setState({
+                id: this.props.match.params.id
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _React2.default.createElement(
+                'div',
+                null,
+                'this page got previewid - ',
+                this.state.id
+            );
+        }
+    }]);
+
+    return Preview;
+}(_React.Component);
+
+exports.default = Preview;
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3458,7 +3635,7 @@ module.exports = require("body-parser");
 
 module.exports = function (data) {
 
-    var fs = __webpack_require__(37);
+    var fs = __webpack_require__(40);
     var uniqueID = getuniqueid();
     var path = './serverdata/' + uniqueID;
 
@@ -3480,17 +3657,28 @@ module.exports = function (data) {
 
     //Writing poster
     var poster = data.imgdata.replace(/^data:image\/[a-z]+;base64,/, "");
-
     writeImg(poster, path + "/poster.jpg");
+
+    //Writing html
+    writeHTML(makeHTML(uniqueID), path + '/index.html');
 
     function writeImg(_data, _imgName) {
         var buf = new Buffer(_data, 'base64');
         fs.writeFile(_imgName, buf, function (err) {
             if (err) {
-                console.log(err, "promise error 2");
                 promiseRejection({ msg: err });
             } else {
                 promiseResolve({ msg: 'success', id: uniqueID });
+            }
+        });
+    }
+
+    function writeHTML(_data, _fileName) {
+        fs.writeFile(_fileName, _data, function (err) {
+            if (err) {
+                console.log(err, "<<<Error");
+            } else {
+                console.log("HTML write Success");
             }
         });
     }
@@ -3510,14 +3698,33 @@ module.exports = function (data) {
 
         return uniqueID;
     }
+
+    function makeHTML(id) {
+
+        console.log("Make HTML function");
+
+        var contentURL = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + id + '/poster.jpg';
+        var previewURL = 'https://amit0shakyafbshare.herokuapp.com/preview/' + id;
+
+        var html = '  \n                    <html>\n                    \n                    <head>\n                    <title>Your Website Title</title>\n\n                    <meta property="og:url"           content=' + previewURL + ' />\n                    <meta property="og:type"          content="website" />\n                    <meta property="og:title"         content="Post Title" />\n                    <meta property="og:description"   content="Post Discription" />\n                    <meta property="og:image:url"     content=' + contentURL + ' />\n                    <meta property="og:image:width"   content="600" />\n                    <meta property="og:image:height"  content="300" />\n                    <meta property="og:ttl"           content="10" />\n\n                        \n                    </head>\n\n                    <style>\n                            body{ \n                                width: 500px; \n                                height:300px; \n                                border:1px solid #000; \n                                box-sizing: border-box; \n                                margin: 0px; \n                                padding: 0px;\n                                }\n                    </style>\n\n                    <script>\n                        window.fbAsyncInit = function() {\n                        FB.init({\n                            appId      : \'576379196100963\',\n                            cookie     : true,\n                            xfbml      : true,\n                            version    : \'v2.12\'\n                        });\n            \n                        FB.AppEvents.logPageView();   \n            \n                        FB.getLoginStatus(function(response) {\n                            if (response.status === \'connected\') {\n                            console.log(\'Logged in.\');\n                            }\n                            else {\n                            FB.login();\n                            }\n                        });\n                        };\n                    \n                        (function(d, s, id){\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) {return;}\n                        js = d.createElement(s); js.id = id;\n                        js.src = "https://connect.facebook.net/en_US/sdk.js";\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n            \n            \n                        function myFacebookLogin() {\n                            FB.login(function(){}, {scope: \'publish_actions\'});\n                        }\n                      </script>\n\n                      <body>\n                      <div id="fb-root"></div>\n                        <script>(function(d, s, id) {\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) return;\n                        js = d.createElement(s); js.id = id;\n                        js.src = \'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1\';\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));</script>\n                      \n                        <img src="poster.jpg">\n                      <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>\n                  </body>\n              \n              </html>';
+
+        return html;
+    }
+
     return _promise;
 };
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-meta-tags/server");
 
 /***/ })
 /******/ ]);

@@ -3,6 +3,8 @@ import Project from './Project/Project';
 import Sharer from './Sharer/Sharer';
 import Tnc from './Tnc/Tnc';
 import Policy from './Policy/Policy';
+import FBtest from './FBtest/FBtest';
+import Preview from './Preview/preview';
 
 const routes =  [
   {
@@ -19,12 +21,20 @@ const routes =  [
     component:Sharer
   },
   {
+    path:'/fbtest',
+    component:FBtest
+  },
+  {
     path:'/tnc',
     component:Tnc
   },
   {
     path:'/policy',
     component:Policy
+  },
+  {
+    path:'/preview/:id',
+    component:Preview
   }
 
 ]
