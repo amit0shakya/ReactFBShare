@@ -3,6 +3,7 @@ import css from './Home.css';
 //import doc from '../../images/doc.jpg';
 import Helmet from 'react-helmet';
 import {ReactTitle} from 'react-meta-tags';
+import { NavLink } from 'react-router-dom'
 
 import Navbar from '../Nav/Navbar';
 
@@ -41,6 +42,7 @@ class Home extends React.Component{
               <h2>React to FB Share</h2>
               <h3>About</h3>
               <p>Hi My name is Amit, I am developing project using Reactjs SSR, Here I use React Helmet etc...</p>
+              <NavLink to="https://github.com/amit0shakya/reactfbshare">Get code..</NavLink>
             </div>
           </div>
       </div>
