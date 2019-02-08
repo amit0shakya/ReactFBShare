@@ -23365,6 +23365,8 @@ var Home = function (_React$Component) {
     _this.state = {
       helmetCode: 'nothing'
     };
+
+    _this.getCode = _this.getCode.bind(_this);
     return _this;
   }
 
@@ -23372,15 +23374,11 @@ var Home = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _parent = this;
-      setTimeout(function () {
-        _parent.updateTags();
-      }, 5000);
     }
   }, {
-    key: 'updateTags',
-    value: function updateTags() {
-
-      console.log("updateTags()");
+    key: 'getCode',
+    value: function getCode() {
+      window.location.href = "https://github.com/amit0shakya/reactfbshare";
     }
   }, {
     key: 'render',
@@ -23412,6 +23410,11 @@ var Home = function (_React$Component) {
               'p',
               null,
               'Hi My name is Amit, I am developing project using Reactjs SSR, Here I use React Helmet etc...'
+            ),
+            _react2.default.createElement(
+              'button',
+              { onClick: this.getCode },
+              'Get Code'
             )
           )
         )
