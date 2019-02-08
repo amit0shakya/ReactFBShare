@@ -28306,7 +28306,10 @@ var Project = function (_Component) {
             username: '',
             redirect: false,
             path: '',
-            helmetcode: ''
+            helmetcode: '',
+            savebtn: true,
+            showcounter: false,
+            timer: 10
         };
         _this.saveImage = _this.saveImage.bind(_this);
         return _this;
@@ -28333,6 +28336,12 @@ var Project = function (_Component) {
         value: function saveImage() {
             stage.cache(0, 0, 500, 300);
 
+            //hide submit button
+            this.setState({
+                savebtn: false,
+                showcounter: true
+            });
+
             var _parent = this;
 
             _axios2.default.post('/saveimage', {
@@ -28344,30 +28353,15 @@ var Project = function (_Component) {
                 setTimeout(function () {
                     var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
                     window.location.href = sharePath;
-                }, 10000);
+                }, 9000);
 
-                //window.open('https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/')
-                //var path='/sharer/'+_parent.id;
-                //var imagepath ='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/poster.jpg'
-
-                /*
-                _parent.setState({
-                    helmetcode: <MetaTags>
-                        <title>Only4Laugh</title>
-                        <meta property='og:url' content='https://amit0shakyafbshare.herokuapp.com' />
-                        <meta property='og:type' content='website' />
-                        <meta property='og:description' content='Amit Post Discription' />
-                        <meta property='og:title' content='Amit Post Title' />
-                        <meta property='og:image' content={imagepath} />
-                        <meta property='og:image:width' content='500' />
-                        <meta property='og:image:height' content='300' />
-                        </MetaTags>,
-                        username:"Amit Shakya",
-                        redirect:true,
-                        path:path
-                    })
-                      _parent.props.history.push(path)
-                */
+                setInterval(function () {
+                    var time = _parent.state.timer;
+                    time--;
+                    _parent.setState({
+                        timer: time
+                    });
+                }, 1000);
             });
         }
     }, {
@@ -28420,13 +28414,12 @@ var Project = function (_Component) {
         value: function render() {
 
             if (this.state.redirect) {
-
                 _react2.default.createElement(_reactRouterDom.Redirect, { to: '/sharer' });
             }
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: _project2.default.projectwrapper },
                 _react2.default.createElement(_Navbar2.default, null),
                 ' ',
                 _react2.default.createElement('br', null),
@@ -28434,6 +28427,11 @@ var Project = function (_Component) {
                 _react2.default.createElement('br', null),
                 this.state.username,
                 this.state.redirect,
+                this.state.showcounter ? _react2.default.createElement(
+                    'div',
+                    { className: _project2.default.counter },
+                    'Image Generate Success - ' + this.state.timer
+                ) : '',
                 _react2.default.createElement(
                     'div',
                     { className: _project2.default.wrapper },
@@ -28455,11 +28453,11 @@ var Project = function (_Component) {
                             { id: 'demoCanvas', width: '500', height: '300' },
                             'alternate content'
                         ),
-                        _react2.default.createElement(
+                        this.state.savebtn ? _react2.default.createElement(
                             'button',
                             { onClick: this.saveImage },
                             'Save Image'
-                        )
+                        ) : ''
                     )
                 )
             );
@@ -28530,12 +28528,14 @@ exports = module.exports = __webpack_require__(105)(true);
 
 
 // module
-exports.push([module.i, ".project__wrapper___1Pf6C{width:100%; float:left;}\r\n.project__bodyarea___S3q7f{width:1000px; margin:30px auto; }\r\ncanvas{border:1px solid #000;}", "", {"version":3,"sources":["F:/WORK/FreelanceWork/src/shared/Project/project.css"],"names":[],"mappings":"AAAA,0BAAS,WAAW,CAAC,WAAW,CAAC;AACjC,2BAAU,aAAa,CAAC,iBAAiB,EAAE;AAC3C,OAAO,sBAAsB,CAAC","file":"project.css","sourcesContent":[".wrapper{width:100%; float:left;}\r\n.bodyarea{width:1000px; margin:30px auto; }\r\ncanvas{border:1px solid #000;}"],"sourceRoot":""}]);
+exports.push([module.i, ".project__wrapper___1Pf6C{width:100%; float:left;}\r\n.project__bodyarea___S3q7f{width:1000px; margin:30px auto; }\r\n.project__projectwrapper___1hqRN{position: relative;}\r\n.project__counter___CXdLS{width:300px; height:100px; border:3px solid #000; box-sizing: border-box; \r\n    position: absolute; background-color: rgba(255,255,255,.9); top:100px; left:0px; right:0px; \r\n    margin: 0 auto; z-index: 1; text-align: center; line-height: 100px; font-weight: 600;}\r\ncanvas{border:1px solid #000;}", "", {"version":3,"sources":["F:/WORK/FreelanceWork/src/shared/Project/project.css"],"names":[],"mappings":"AAAA,0BAAS,WAAW,CAAC,WAAW,CAAC;AACjC,2BAAU,aAAa,CAAC,iBAAiB,EAAE;AAC3C,iCAAgB,mBAAmB,CAAC;AACpC,0BAAS,YAAY,CAAC,aAAa,CAAC,sBAAsB,CAAC,uBAAuB;IAC9E,mBAAmB,CAAC,uCAAuC,CAAC,UAAU,CAAC,SAAS,CAAC,UAAU;IAC3F,eAAe,CAAC,WAAW,CAAC,mBAAmB,CAAC,mBAAmB,CAAC,iBAAiB,CAAC;AAC1F,OAAO,sBAAsB,CAAC","file":"project.css","sourcesContent":[".wrapper{width:100%; float:left;}\r\n.bodyarea{width:1000px; margin:30px auto; }\r\n.projectwrapper{position: relative;}\r\n.counter{width:300px; height:100px; border:3px solid #000; box-sizing: border-box; \r\n    position: absolute; background-color: rgba(255,255,255,.9); top:100px; left:0px; right:0px; \r\n    margin: 0 auto; z-index: 1; text-align: center; line-height: 100px; font-weight: 600;}\r\ncanvas{border:1px solid #000;}"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
 	"wrapper": "project__wrapper___1Pf6C",
-	"bodyarea": "project__bodyarea___S3q7f"
+	"bodyarea": "project__bodyarea___S3q7f",
+	"projectwrapper": "project__projectwrapper___1hqRN",
+	"counter": "project__counter___CXdLS"
 };
 
 /***/ }),

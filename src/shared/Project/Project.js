@@ -17,6 +17,9 @@ class Project extends Component {
             redirect:false,
             path:'',
             helmetcode:'',
+            savebtn:true,
+            showcounter:false,
+            timer:10
         };
         this.saveImage=this.saveImage.bind(this);
     }
@@ -40,6 +43,12 @@ class Project extends Component {
     saveImage(){
         stage.cache(0,0,500,300);
 
+        //hide submit button
+        this.setState({
+            savebtn:false,
+            showcounter:true
+        })
+
         var _parent = this;
 
         axios.post('/saveimage', {
@@ -52,31 +61,15 @@ class Project extends Component {
             setTimeout(function(){
                 var sharePath='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/'
                 window.location.href = sharePath;
-            },10000)
+            },9000)
 
-            //window.open('https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/')
-            //var path='/sharer/'+_parent.id;
-            //var imagepath ='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/poster.jpg'
-
-            /*
-            _parent.setState({
-                helmetcode: <MetaTags>
-                    <title>Only4Laugh</title>
-                    <meta property='og:url' content='https://amit0shakyafbshare.herokuapp.com' />
-                    <meta property='og:type' content='website' />
-                    <meta property='og:description' content='Amit Post Discription' />
-                    <meta property='og:title' content='Amit Post Title' />
-                    <meta property='og:image' content={imagepath} />
-                    <meta property='og:image:width' content='500' />
-                    <meta property='og:image:height' content='300' />
-                    </MetaTags>,
-                    username:"Amit Shakya",
-                    redirect:true,
-                    path:path
+            setInterval(function(){
+                var time = _parent.state.timer;
+                    time--;
+                _parent.setState({
+                    timer:time
                 })
-
-                _parent.props.history.push(path)
-            */
+            },1000)
           })
 
     }
@@ -131,16 +124,17 @@ class Project extends Component {
     render(){
 
         if(this.state.redirect){
-     
             <Redirect to="/sharer" /> 
         }
 
         return(
-            <div> 
+            <div className={css.projectwrapper}> 
                 <Navbar /> <br />
                 {this.state.helmetcode}<br /> 
                 {this.state.username}
                 {this.state.redirect}
+
+                {this.state.showcounter ?<div className={css.counter}>{`Image Generate Success - ${this.state.timer}`}</div>: ''}
                 <div className={css.wrapper}>
                     <div className={css.bodyarea}>
                     <h2>Project</h2>
@@ -149,7 +143,8 @@ class Project extends Component {
                             <canvas id="demoCanvas" width="500" height="300">
                                 alternate content
                             </canvas>
-                            <button onClick={this.saveImage}>Save Image</button>
+                            {this.state.savebtn ? <button onClick={this.saveImage}>Save Image</button> :'' } 
+                            
                     </div>
                 </div>
 
