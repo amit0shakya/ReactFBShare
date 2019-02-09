@@ -3,6 +3,7 @@ import css from './Home.css';
 //import doc from '../../images/doc.jpg';
 import Helmet from 'react-helmet';
 import {ReactTitle} from 'react-meta-tags';
+import { NavLink } from 'react-router-dom'
 
 import Navbar from '../Nav/Navbar';
 
@@ -39,12 +40,12 @@ class Home extends React.Component{
               <h3>About</h3>
               <p>Hi My name is Amit, I am developing project using Reactjs SSR, Here I use React Helmet etc...</p>
               <button onClick={this.getCode}>Get Code</button>
+              <NavLink to={'/project'} className={css.buttonface}>Project page</NavLink>
             </div>
           </div>
       </div>
     )
   }
-  
 }
 
 export default Home;

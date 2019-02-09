@@ -1,2 +1,4 @@
 .wrapper{width:100%; float:left;}
 .bodyarea{width:1000px; margin:30px auto; }
+.buttonface{padding:4px 8px; background-color:rgb(0, 153, 255); cursor: pointer; color:#fff; 
+    text-decoration: none; box-sizing: border-box; margin:0px 10px;}

@@ -77,12 +77,6 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-meta-tags");
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -164,7 +158,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -292,6 +286,12 @@ function insertCss(styles) {
 }
 
 module.exports = insertCss;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-meta-tags");
 
 /***/ }),
 /* 5 */
@@ -504,7 +504,7 @@ var _server2 = __webpack_require__(41);
 
 var _server3 = _interopRequireDefault(_server2);
 
-var _reactMetaTags = __webpack_require__(2);
+var _reactMetaTags = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -719,7 +719,9 @@ var _reactHelmet = __webpack_require__(6);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _reactMetaTags = __webpack_require__(2);
+var _reactMetaTags = __webpack_require__(4);
+
+var _reactRouterDom = __webpack_require__(1);
 
 var _Navbar = __webpack_require__(7);
 
@@ -796,6 +798,11 @@ var Home = function (_React$Component) {
               'button',
               { onClick: this.getCode },
               'Get Code'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/project', className: _Home2.default.buttonface },
+              'Project page'
             )
           )
         )
@@ -814,7 +821,7 @@ exports.default = Home;
 
 
     var content = __webpack_require__(20);
-    var insertCss = __webpack_require__(4);
+    var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -847,17 +854,18 @@ exports.default = Home;
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(true);
+exports = module.exports = __webpack_require__(2)(true);
 // imports
 
 
 // module
-exports.push([module.i, ".Home__wrapper___csWl2{width:100%; float:left;}\r\n.Home__bodyarea___2CsIZ{width:1000px; margin:30px auto; }", "", {"version":3,"sources":["F:/WORK/FreelanceWork/src/shared/Home/Home.css"],"names":[],"mappings":"AAAA,uBAAS,WAAW,CAAC,WAAW,CAAC;AACjC,wBAAU,aAAa,CAAC,iBAAiB,EAAE","file":"Home.css","sourcesContent":[".wrapper{width:100%; float:left;}\r\n.bodyarea{width:1000px; margin:30px auto; }"],"sourceRoot":""}]);
+exports.push([module.i, ".Home__wrapper___csWl2{width:100%; float:left;}\r\n.Home__bodyarea___2CsIZ{width:1000px; margin:30px auto; }\r\n.Home__buttonface___2BWbf{padding:4px 8px; background-color:rgb(0, 153, 255); cursor: pointer; color:#fff; \r\n    text-decoration: none; box-sizing: border-box; margin:0px 10px;}", "", {"version":3,"sources":["F:/WORK/FreelanceWork/src/shared/Home/Home.css"],"names":[],"mappings":"AAAA,uBAAS,WAAW,CAAC,WAAW,CAAC;AACjC,wBAAU,aAAa,CAAC,iBAAiB,EAAE;AAC3C,0BAAY,gBAAgB,CAAC,kCAAkC,CAAC,gBAAgB,CAAC,WAAW;IACxF,sBAAsB,CAAC,uBAAuB,CAAC,gBAAgB,CAAC","file":"Home.css","sourcesContent":[".wrapper{width:100%; float:left;}\r\n.bodyarea{width:1000px; margin:30px auto; }\r\n.buttonface{padding:4px 8px; background-color:rgb(0, 153, 255); cursor: pointer; color:#fff; \r\n    text-decoration: none; box-sizing: border-box; margin:0px 10px;}"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
 	"wrapper": "Home__wrapper___csWl2",
-	"bodyarea": "Home__bodyarea___2CsIZ"
+	"bodyarea": "Home__bodyarea___2CsIZ",
+	"buttonface": "Home__buttonface___2BWbf"
 };
 
 /***/ }),
@@ -878,7 +886,7 @@ module.exports = require("babel-runtime/helpers/slicedToArray");
 
 
     var content = __webpack_require__(24);
-    var insertCss = __webpack_require__(4);
+    var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -911,7 +919,7 @@ module.exports = require("babel-runtime/helpers/slicedToArray");
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(true);
+exports = module.exports = __webpack_require__(2)(true);
 // imports
 
 
@@ -953,10 +961,6 @@ var _axios = __webpack_require__(28);
 var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRouterDom = __webpack_require__(1);
-
-var _reactMetaTags = __webpack_require__(2);
-
-var _reactMetaTags2 = _interopRequireDefault(_reactMetaTags);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1024,18 +1028,8 @@ var Project = function (_Component) {
 
                 _parent.id = response.data.id;
 
-                setTimeout(function () {
-                    var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
-                    window.location.href = sharePath;
-                }, 9000);
-
-                setInterval(function () {
-                    var time = _parent.state.timer;
-                    time--;
-                    _parent.setState({
-                        timer: time
-                    });
-                }, 1000);
+                var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
+                window.location.href = sharePath;
             });
         }
     }, {
@@ -1101,11 +1095,6 @@ var Project = function (_Component) {
                 _react2.default.createElement('br', null),
                 this.state.username,
                 this.state.redirect,
-                this.state.showcounter ? _react2.default.createElement(
-                    'div',
-                    { className: _project2.default.counter },
-                    'Image Generate Success - ' + this.state.timer
-                ) : '',
                 _react2.default.createElement(
                     'div',
                     { className: _project2.default.wrapper },
@@ -1149,7 +1138,7 @@ exports.default = Project;
 
 
     var content = __webpack_require__(27);
-    var insertCss = __webpack_require__(4);
+    var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -1182,7 +1171,7 @@ exports.default = Project;
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(true);
+exports = module.exports = __webpack_require__(2)(true);
 // imports
 
 
@@ -3509,7 +3498,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactMetaTags = __webpack_require__(2);
+var _reactMetaTags = __webpack_require__(4);
 
 var _reactMetaTags2 = _interopRequireDefault(_reactMetaTags);
 
@@ -3709,7 +3698,7 @@ module.exports = function (data) {
         var contentURL = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + id + '/poster.jpg';
         var previewURL = 'https://amit0shakyafbshare.herokuapp.com/preview/' + id;
 
-        var html = '  \n                    <html>\n                    \n                    <head>\n                    <title>Amit Website Post</title>\n\n                    <meta property="og:url"           content=' + previewURL + ' />\n                    <meta property="og:type"          content="website" />\n                    <meta property="og:title"         content="Post Title" />\n                    <meta property="og:description"   content="Post Discription" />\n                    <meta property="og:image:url"     content=' + contentURL + ' />\n                    <meta property="og:image:width"   content="600" />\n                    <meta property="og:image:height"  content="300" />\n                    <meta property="og:ttl"           content="345600" />\n\n                        \n                    </head>\n\n                    <style>\n                            body{ \n                                width: 500px; \n                                height:300px; \n                                border:1px solid #000; \n                                box-sizing: border-box; \n                                margin: 0px; \n                                padding: 0px;\n                                }\n                    </style>\n\n                    <script>\n                        window.fbAsyncInit = function() {\n                        FB.init({\n                            appId      : \'576379196100963\',\n                            cookie     : true,\n                            xfbml      : true,\n                            version    : \'v2.12\'\n                        });\n            \n                        FB.AppEvents.logPageView();   \n            \n                        FB.getLoginStatus(function(response) {\n                            if (response.status === \'connected\') {\n                            console.log(\'Logged in.\');\n                            }\n                            else {\n                            FB.login();\n                            }\n                        });\n                        };\n                    \n                        (function(d, s, id){\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) {return;}\n                        js = d.createElement(s); js.id = id;\n                        js.src = "https://connect.facebook.net/en_US/sdk.js";\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n            \n            \n                        function myFacebookLogin() {\n                            FB.login(function(){}, {scope: \'publish_actions\'});\n                        }\n                      </script>\n\n                      <body>\n                      <div id="fb-root"></div>\n                        <script>(function(d, s, id) {\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) return;\n                        js = d.createElement(s); js.id = id;\n                        js.src = \'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1\';\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n                        </script>\n                      \n                    <img src="poster.jpg">\n                    <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true">\n                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>\n                    </div>\n                  </body>\n              \n              </html>';
+        var html = '  \n                    <html>\n                    \n                    <head>\n                    <title>Amit Website Post</title>\n\n                    <meta property="og:url"           content=' + previewURL + ' />\n                    <meta property="og:type"          content="website" />\n                    <meta property="og:title"         content="Post Title" />\n                    <meta property="og:description"   content="Post Discription" />\n                    <meta property="og:image:url"     content=' + contentURL + ' />\n                    <meta property="og:image:width"   content="600" />\n                    <meta property="og:image:height"  content="300" />\n                    <meta property="og:ttl"           content="345600" />\n\n                        \n                    </head>\n\n                    <style>\n                            body{ \n                                width: 500px; \n                                height:300px; \n                                border:1px solid #000; \n                                box-sizing: border-box; \n                                margin: 0px; \n                                padding: 0px;\n                                }\n                    </style>\n\n                    <script>\n                        window.fbAsyncInit = function() {\n                        FB.init({\n                            appId      : \'576379196100963\',\n                            cookie     : true,\n                            xfbml      : true,\n                            version    : \'v2.12\'\n                        });\n            \n                        FB.AppEvents.logPageView();   \n            \n                        FB.getLoginStatus(function(response) {\n                            if (response.status === \'connected\') {\n                            console.log(\'Logged in.\');\n                            }\n                            else {\n                            FB.login();\n                            }\n                        });\n                        };\n                    \n                        (function(d, s, id){\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) {return;}\n                        js = d.createElement(s); js.id = id;\n                        js.src = "https://connect.facebook.net/en_US/sdk.js";\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n            \n            \n                        function myFacebookLogin() {\n                            FB.login(function(){}, {scope: \'publish_actions\'});\n                        }\n                      </script>\n\n                      <body>\n                      <div id="fb-root"></div>\n                        <script>(function(d, s, id) {\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) return;\n                        js = d.createElement(s); js.id = id;\n                        js.src = \'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1\';\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n                        </script>\n                    <p>Below Image is Needs to be share on Facebook, via facebook Page Share</p>\n                    <img src="poster.jpg">\n                    <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true">\n                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>\n                    </div>\n                  </body>\n              \n              </html>';
 
         return html;
     }

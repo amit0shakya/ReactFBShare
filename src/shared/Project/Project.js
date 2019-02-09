@@ -3,7 +3,6 @@ import Navbar from '../Nav/Navbar';
 import css from './project.css';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import MetaTags from 'react-meta-tags';
 
 var createjs, stage, label, shape, oldX, oldY, size, color, canvas;
 
@@ -58,18 +57,11 @@ class Project extends Component {
 
             _parent.id = response.data.id;
 
-            setTimeout(function(){
-                var sharePath='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/'
+            
+            var sharePath='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/'
                 window.location.href = sharePath;
-            },9000)
+            
 
-            setInterval(function(){
-                var time = _parent.state.timer;
-                    time--;
-                _parent.setState({
-                    timer:time
-                })
-            },1000)
           })
 
     }
@@ -134,7 +126,6 @@ class Project extends Component {
                 {this.state.username}
                 {this.state.redirect}
 
-                {this.state.showcounter ?<div className={css.counter}>{`Image Generate Success - ${this.state.timer}`}</div>: ''}
                 <div className={css.wrapper}>
                     <div className={css.bodyarea}>
                     <h2>Project</h2>
