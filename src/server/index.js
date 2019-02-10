@@ -28,6 +28,7 @@ app.use('/js', express.static('assets/js'));
 
 
 app.post('/saveimage', async function(req,res){
+  console.log("Save image Requst Recieve in Post method")
   var data = await imageMaker(req.body)  
   res.send(data)
 })
@@ -72,18 +73,8 @@ app.get("*", (req, res, next) => {
         </head>
 
         <body>
-        
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1';
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-        
           <div id="app">${markup}</div>
 
-          <div id="fb-root"></div>
         </body>
       </html>
     `)

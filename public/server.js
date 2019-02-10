@@ -531,15 +531,16 @@ app.post('/saveimage', function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            console.log("Save image Requst Recieve in Post method");
+            _context.next = 3;
             return (0, _imagemaker2.default)(req.body);
 
-          case 2:
+          case 3:
             data = _context.sent;
 
             res.send(data);
 
-          case 4:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -580,7 +581,7 @@ app.get("*", function (req, res, next) {
 
     var meta = metaTagsInstance.renderToString();
 
-    res.send("\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charSet=\"utf-8\"/>\n          " + meta + "\n          <script src=\"/bundle.js\" defer></script>\n          <script src=\"/js/jquerymin.js\" defer></script>\n          <script src=\"/js/createjs.min.js\" defer></script>\n\n          <script>window.__INITIAL_DATA__ = " + (0, _serializeJavascript2.default)(data) + "</script>\n        </head>\n\n        <body>\n        \n        <script>(function(d, s, id) {\n          var js, fjs = d.getElementsByTagName(s)[0];\n          if (d.getElementById(id)) return;\n          js = d.createElement(s); js.id = id;\n          js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1';\n          fjs.parentNode.insertBefore(js, fjs);\n        }(document, 'script', 'facebook-jssdk'));</script>\n        \n          <div id=\"app\">" + markup + "</div>\n\n          <div id=\"fb-root\"></div>\n        </body>\n      </html>\n    ");
+    res.send("\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charSet=\"utf-8\"/>\n          " + meta + "\n          <script src=\"/bundle.js\" defer></script>\n          <script src=\"/js/jquerymin.js\" defer></script>\n          <script src=\"/js/createjs.min.js\" defer></script>\n\n          <script>window.__INITIAL_DATA__ = " + (0, _serializeJavascript2.default)(data) + "</script>\n        </head>\n\n        <body>\n          <div id=\"app\">" + markup + "</div>\n\n        </body>\n      </html>\n    ");
   }).catch(next);
 });
 
@@ -984,10 +985,7 @@ var Project = function (_Component) {
             username: '',
             redirect: false,
             path: '',
-            helmetcode: '',
-            savebtn: true,
-            showcounter: false,
-            timer: 10
+            helmetcode: ''
         };
         _this.saveImage = _this.saveImage.bind(_this);
         return _this;
@@ -1012,14 +1010,9 @@ var Project = function (_Component) {
     }, {
         key: 'saveImage',
         value: function saveImage() {
-            stage.cache(0, 0, 500, 300);
+            stage.cache(0, 0, 600, 300);
 
-            //hide submit button
-            this.setState({
-                savebtn: false,
-                showcounter: true
-            });
-
+            console.log("Save image command goes to server");
             var _parent = this;
 
             _axios2.default.post('/saveimage', {
@@ -1027,6 +1020,8 @@ var Project = function (_Component) {
             }).then(function (response) {
 
                 _parent.id = response.data.id;
+
+                console.log("Image write success from server");
 
                 var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
                 window.location.href = sharePath;
@@ -1043,11 +1038,26 @@ var Project = function (_Component) {
             stage = new createjs.Stage(canvas);
             stage.enableDOMEvents(true);
 
+            var _rootCont = new createjs.Container();
+            var _drawCont = new createjs.Container();
+
+            stage.addChild(_rootCont);
+            stage.addChild(_drawCont);
+
+            var rect = new createjs.Graphics().beginStroke("red").beginFill('#fff5ed').drawRect(0, 0, 600, 300);
+            var rectShape = new createjs.Shape(rect);
+
+            _rootCont.addChild(rectShape);
+
+            stage.update();
+
+            console.log(_rootCont, "<<<_rootCont");
+
             label = new createjs.Text("Write Someting Here", "24px Arial");
             label.x = label.y = 10;
 
             shape = new createjs.Shape();
-            stage.addChild(shape, label);
+            _drawCont.addChild(shape, label);
 
             // set up our defaults:
             color = "#0FF";
@@ -1113,14 +1123,14 @@ var Project = function (_Component) {
                         ),
                         _react2.default.createElement(
                             'canvas',
-                            { id: 'demoCanvas', width: '500', height: '300' },
+                            { id: 'demoCanvas', width: '600', height: '300' },
                             'alternate content'
                         ),
-                        this.state.savebtn ? _react2.default.createElement(
+                        _react2.default.createElement(
                             'button',
                             { onClick: this.saveImage },
                             'Save Image'
-                        ) : ''
+                        )
                     )
                 )
             );
@@ -3627,6 +3637,8 @@ module.exports = require("body-parser");
 
 module.exports = function (data) {
 
+    console.log("imagemaker 1");
+
     var fs = __webpack_require__(40);
     var uniqueID = getuniqueid();
     var path = './serverdata/' + uniqueID;
@@ -3639,24 +3651,30 @@ module.exports = function (data) {
         promiseRejection = rejection;
     });
 
+    console.log("imagemaker 2");
+
     //Make Directory
     fs.mkdir(path, { recursive: true }, function (err) {
         if (err) {
             console.log(err, "<<<promise Error 1");
             promiseRejection({ msg: err });
+
+            console.log("imagemaker 3 makeDIR");
         }
     });
 
     //Writing poster
-    var poster = data.imgdata.replace(/^data:image\/[a-z]+;base64,/, "");
-    writeImg(poster, path + "/poster.jpg");
+    var poster = data.imgdata.split(';base64,').pop();
+    writeImg(poster, path + "/poster.png");
 
     //Writing html
     writeHTML(makeHTML(uniqueID), path + '/index.html');
 
     function writeImg(_data, _imgName) {
-        var buf = new Buffer(_data, 'base64');
-        fs.writeFile(_imgName, buf, function (err) {
+
+        console.log("imagemaker 4 write Img");
+
+        fs.writeFile(_imgName, _data, { encoding: 'base64' }, function (err) {
             if (err) {
                 promiseRejection({ msg: err });
             } else {
@@ -3666,6 +3684,7 @@ module.exports = function (data) {
     }
 
     function writeHTML(_data, _fileName) {
+        console.log("imagemaker 6 writeHTML");
         fs.writeFile(_fileName, _data, function (err) {
             if (err) {
                 console.log(err, "<<<Error");
@@ -3695,10 +3714,10 @@ module.exports = function (data) {
 
         console.log("Make HTML function");
 
-        var contentURL = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + id + '/poster.jpg';
+        var contentURL = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + id + '/poster.png';
         var previewURL = 'https://amit0shakyafbshare.herokuapp.com/preview/' + id;
 
-        var html = '  \n                    <html>\n                    \n                    <head>\n                    <title>Amit Website Post</title>\n\n                    <meta property="og:url"           content=' + previewURL + ' />\n                    <meta property="og:type"          content="website" />\n                    <meta property="og:title"         content="Post Title" />\n                    <meta property="og:description"   content="Post Discription" />\n                    <meta property="og:image:url"     content=' + contentURL + ' />\n                    <meta property="og:image:width"   content="600" />\n                    <meta property="og:image:height"  content="300" />\n                    <meta property="og:ttl"           content="345600" />\n\n                        \n                    </head>\n\n                    <style>\n                            body{ \n                                width: 500px; \n                                height:300px; \n                                border:1px solid #000; \n                                box-sizing: border-box; \n                                margin: 0px; \n                                padding: 0px;\n                                }\n                    </style>\n\n                    <script>\n                        window.fbAsyncInit = function() {\n                        FB.init({\n                            appId      : \'576379196100963\',\n                            cookie     : true,\n                            xfbml      : true,\n                            version    : \'v2.12\'\n                        });\n            \n                        FB.AppEvents.logPageView();   \n            \n                        FB.getLoginStatus(function(response) {\n                            if (response.status === \'connected\') {\n                            console.log(\'Logged in.\');\n                            }\n                            else {\n                            FB.login();\n                            }\n                        });\n                        };\n                    \n                        (function(d, s, id){\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) {return;}\n                        js = d.createElement(s); js.id = id;\n                        js.src = "https://connect.facebook.net/en_US/sdk.js";\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n            \n            \n                        function myFacebookLogin() {\n                            FB.login(function(){}, {scope: \'publish_actions\'});\n                        }\n                      </script>\n\n                      <body>\n                      <div id="fb-root"></div>\n                        <script>(function(d, s, id) {\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) return;\n                        js = d.createElement(s); js.id = id;\n                        js.src = \'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1\';\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n                        </script>\n                    <p>Below Image is Needs to be share on Facebook, via facebook Page Share</p>\n                    <img src="poster.jpg">\n                    <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true">\n                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>\n                    </div>\n                  </body>\n              \n              </html>';
+        var html = '  \n                    <html>\n                    \n                    <head>\n                    <title>Amit Website Post</title>\n\n                    \n                    <meta property="og:site_name"     content="only4laugh.com" />\n                    <meta property="og:url"           content=' + previewURL + ' />\n                    <meta property="og:type"          content="Article" />\n                    <meta property="og:title"         content="Post Title" />\n                    <meta property="og:description"   content="Post Discription" />\n                    <meta property="og:image:secure_url"content=' + contentURL + ' />\n                    <meta property="og:image:url"     content=' + contentURL + ' />\n                    <meta property="og:image:type"    content="image/png" />\n                    <meta property="og:image:width"   content="600" />\n                    <meta property="og:image:height"  content="300" />\n                    <meta property="fb:app_id"        content="576379196100963" />\n                    \n                    <meta name="robots"              content="all" />\n                    <meta http-equiv="Cache-control" content="public" />\n\n                    </head>\n\n                    <style>\n                            body{ \n                                width: 500px; \n                                height:300px; \n                                border:1px solid #000; \n                                box-sizing: border-box; \n                                margin: 0px; \n                                padding: 0px;\n                                }\n                            p{float:left}\n                            img{margin:0px; padding:0px; float:left;}\n                    </style>\n\n                    <script>\n                        window.fbAsyncInit = function() {\n                        FB.init({\n                            appId      : \'576379196100963\',\n                            cookie     : true,\n                            xfbml      : true,\n                            version    : \'v2.12\'\n                        });\n            \n                        FB.AppEvents.logPageView();   \n            \n                        FB.getLoginStatus(function(response) {\n                            if (response.status === \'connected\') {\n                            console.log(\'Logged in.\');\n                            }\n                            else {\n                            FB.login();\n                            }\n                        });\n                        };\n                    \n                        (function(d, s, id){\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) {return;}\n                        js = d.createElement(s); js.id = id;\n                        js.src = "https://connect.facebook.net/en_US/sdk.js";\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n            \n            \n                        function myFacebookLogin() {\n                            FB.login(function(){}, {scope: \'publish_actions\'});\n                        }\n                      </script>\n\n                      <body>\n                      <div id="fb-root"></div>\n                        <script>(function(d, s, id) {\n                        var js, fjs = d.getElementsByTagName(s)[0];\n                        if (d.getElementById(id)) return;\n                        js = d.createElement(s); js.id = id;\n                        js.src = \'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=576379196100963&autoLogAppEvents=1\';\n                        fjs.parentNode.insertBefore(js, fjs);\n                        }(document, \'script\', \'facebook-jssdk\'));\n                        </script>\n                    <p>Below Image is Needs to be share on Facebook, via facebook Page Share</p>\n                    <img src="poster.png">\n                    <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true">\n                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>\n                    </div>\n                  </body>\n              \n              </html>';
 
         return html;
     }

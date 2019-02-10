@@ -15,10 +15,7 @@ class Project extends Component {
             username:'',
             redirect:false,
             path:'',
-            helmetcode:'',
-            savebtn:true,
-            showcounter:false,
-            timer:10
+            helmetcode:''
         };
         this.saveImage=this.saveImage.bind(this);
     }
@@ -40,14 +37,9 @@ class Project extends Component {
     }
 
     saveImage(){
-        stage.cache(0,0,500,300);
+        stage.cache(0,0,600,300);
 
-        //hide submit button
-        this.setState({
-            savebtn:false,
-            showcounter:true
-        })
-
+        console.log("Save image command goes to server")
         var _parent = this;
 
         axios.post('/saveimage', {
@@ -57,11 +49,11 @@ class Project extends Component {
 
             _parent.id = response.data.id;
 
-            
-            var sharePath='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/'
-                window.location.href = sharePath;
-            
+            console.log("Image write success from server")
 
+            var sharePath='https://amit0shakyafbshare.herokuapp.com/serverdata/'+response.data.id+'/'
+            window.location.href = sharePath;
+            
           })
 
     }
@@ -75,11 +67,26 @@ class Project extends Component {
         stage = new createjs.Stage(canvas);
         stage.enableDOMEvents(true);
 
+        var _rootCont = new createjs.Container()
+        var _drawCont = new createjs.Container();
+        
+        stage.addChild(_rootCont);
+        stage.addChild(_drawCont);
+
+        var rect = new createjs.Graphics().beginStroke("red").beginFill('#fff5ed').drawRect(0, 0, 600, 300);
+        var rectShape = new createjs.Shape(rect);
+
+        _rootCont.addChild(rectShape)
+
+        stage.update();
+        
+        console.log(_rootCont,"<<<_rootCont");
+
         label = new createjs.Text("Write Someting Here", "24px Arial");
         label.x = label.y = 10;
 
         shape = new createjs.Shape();
-        stage.addChild(shape, label);
+        _drawCont.addChild(shape, label);
         
         // set up our defaults:
         color = "#0FF";
@@ -131,11 +138,10 @@ class Project extends Component {
                     <h2>Project</h2>
                     <p>Draw Some random thing on Canvas otherwise make your Autograph and then click save
                         to save your artwork to server</p>
-                            <canvas id="demoCanvas" width="500" height="300">
+                            <canvas id="demoCanvas" width="600" height="300">
                                 alternate content
                             </canvas>
-                            {this.state.savebtn ? <button onClick={this.saveImage}>Save Image</button> :'' } 
-                            
+                            <button onClick={this.saveImage}>Save Image</button>
                     </div>
                 </div>
 

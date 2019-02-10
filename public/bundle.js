@@ -28313,10 +28313,7 @@ var Project = function (_Component) {
             username: '',
             redirect: false,
             path: '',
-            helmetcode: '',
-            savebtn: true,
-            showcounter: false,
-            timer: 10
+            helmetcode: ''
         };
         _this.saveImage = _this.saveImage.bind(_this);
         return _this;
@@ -28341,14 +28338,9 @@ var Project = function (_Component) {
     }, {
         key: 'saveImage',
         value: function saveImage() {
-            stage.cache(0, 0, 500, 300);
+            stage.cache(0, 0, 600, 300);
 
-            //hide submit button
-            this.setState({
-                savebtn: false,
-                showcounter: true
-            });
-
+            console.log("Save image command goes to server");
             var _parent = this;
 
             _axios2.default.post('/saveimage', {
@@ -28356,6 +28348,8 @@ var Project = function (_Component) {
             }).then(function (response) {
 
                 _parent.id = response.data.id;
+
+                console.log("Image write success from server");
 
                 var sharePath = 'https://amit0shakyafbshare.herokuapp.com/serverdata/' + response.data.id + '/';
                 window.location.href = sharePath;
@@ -28372,11 +28366,26 @@ var Project = function (_Component) {
             stage = new createjs.Stage(canvas);
             stage.enableDOMEvents(true);
 
+            var _rootCont = new createjs.Container();
+            var _drawCont = new createjs.Container();
+
+            stage.addChild(_rootCont);
+            stage.addChild(_drawCont);
+
+            var rect = new createjs.Graphics().beginStroke("red").beginFill('#fff5ed').drawRect(0, 0, 600, 300);
+            var rectShape = new createjs.Shape(rect);
+
+            _rootCont.addChild(rectShape);
+
+            stage.update();
+
+            console.log(_rootCont, "<<<_rootCont");
+
             label = new createjs.Text("Write Someting Here", "24px Arial");
             label.x = label.y = 10;
 
             shape = new createjs.Shape();
-            stage.addChild(shape, label);
+            _drawCont.addChild(shape, label);
 
             // set up our defaults:
             color = "#0FF";
@@ -28442,14 +28451,14 @@ var Project = function (_Component) {
                         ),
                         _react2.default.createElement(
                             'canvas',
-                            { id: 'demoCanvas', width: '500', height: '300' },
+                            { id: 'demoCanvas', width: '600', height: '300' },
                             'alternate content'
                         ),
-                        this.state.savebtn ? _react2.default.createElement(
+                        _react2.default.createElement(
                             'button',
                             { onClick: this.saveImage },
                             'Save Image'
-                        ) : ''
+                        )
                     )
                 )
             );

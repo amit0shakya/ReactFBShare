@@ -1,7 +1,5 @@
 module.exports=function(data){
 
-    console.log("imagemaker 1")
-
     const fs = require('fs');
     const uniqueID = getuniqueid();
     var path = './serverdata/'+uniqueID;
@@ -14,32 +12,26 @@ module.exports=function(data){
         promiseRejection=rejection ;
     })
 
-    console.log("imagemaker 2")
-
     //Make Directory
     fs.mkdir(path, { recursive: true }, (err) => {
         if(err){
             console.log(err,"<<<promise Error 1")
             promiseRejection({msg:err});
-
-            console.log("imagemaker 3 makeDIR")
         }
       });
 
 
     //Writing poster
-    var poster = data.imgdata.split(';base64,').pop();
-        writeImg(poster,(path+"/poster.png"));
+    var poster = data.imgdata.replace(/^data:image\/[a-z]+;base64,/, "");    
+        writeImg(poster,(path+"/poster.jpg"));
 
 
     //Writing html
     writeHTML(makeHTML(uniqueID),(path+'/index.html'))
 
     function writeImg(_data,_imgName){
-
-        console.log("imagemaker 4 write Img")
-
-        fs.writeFile(_imgName,_data,{encoding:'base64'},(err)=>{
+        var buf = new Buffer(_data,'base64')
+        fs.writeFile(_imgName,buf,(err)=>{
             if(err){
                 promiseRejection({msg:err});           
             }else{
@@ -49,7 +41,6 @@ module.exports=function(data){
     }
 
     function writeHTML(_data,_fileName){
-        console.log("imagemaker 6 writeHTML")
         fs.writeFile(_fileName,_data,(err)=>{
             if(err){
                 console.log(err,"<<<Error")        
@@ -80,7 +71,7 @@ module.exports=function(data){
 
         console.log("Make HTML function")
 
-        var contentURL=`https://amit0shakyafbshare.herokuapp.com/serverdata/${id}/poster.png`
+        var contentURL=`https://amit0shakyafbshare.herokuapp.com/serverdata/${id}/poster.jpg`
         var previewURL=`https://amit0shakyafbshare.herokuapp.com/preview/${id}`
 
         var html=`  
@@ -89,26 +80,21 @@ module.exports=function(data){
                     <head>
                     <title>Amit Website Post</title>
 
-                    
-                    <meta property="og:site_name"     content="only4laugh.com" />
                     <meta property="og:url"           content=${previewURL} />
-                    <meta property="og:type"          content="Article" />
+                    <meta property="og:type"          content="website" />
                     <meta property="og:title"         content="Post Title" />
                     <meta property="og:description"   content="Post Discription" />
-                    <meta property="og:image:secure_url"content=${contentURL} />
-                    <meta property="og:image:url"     content=${contentURL} />
-                    <meta property="og:image:type"    content="image/png" />
+                    <meta property="og:image:url:secure_url"     content=${contentURL} />
                     <meta property="og:image:width"   content="600" />
                     <meta property="og:image:height"  content="300" />
-                    <meta property="fb:app_id"        content="576379196100963" />
-                    
-                    <meta name="robots"              content="all" />
-                    <meta http-equiv="Cache-control" content="public" />
 
+                        
                     </head>
 
                     <style>
                             body{ 
+                                width: 500px; 
+                                height:300px; 
                                 border:1px solid #000; 
                                 box-sizing: border-box; 
                                 margin: 0px; 
@@ -164,7 +150,7 @@ module.exports=function(data){
                         }(document, 'script', 'facebook-jssdk'));
                         </script>
                     <p>Below Image is Needs to be share on Facebook, via facebook Page Share</p>
-                    <img src="poster.png">
+                    <img src="poster.jpg">
                     <div class="fb-share-button" data-href="https://amit0shakyafbshare.herokuapp.com/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
                     <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Famit0shakyafbshare.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
                     </div>
